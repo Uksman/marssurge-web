@@ -1,6 +1,7 @@
 "use client"
 
 import { Check, Circle, Rocket, Zap, Globe, Crown, Target, Gem } from "lucide-react"
+import { motion } from "framer-motion"
 
 const roadmapPhases = [
   {
@@ -89,7 +90,11 @@ function PhaseCard({ phase, index }: { phase: typeof roadmapPhases[0]; index: nu
   const isCurrent = phase.status === "current"
   
   return (
-    <div 
+    <motion.div 
+      initial={{ opacity: 0, scale: 0.9, y: 30 }}
+      whileInView={{ opacity: 1, scale: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.6, delay: (index % 3) * 0.1 }}
       className={`glass-card rounded-2xl p-6 relative transition-all duration-300 hover:-translate-y-1 ${
         isCurrent ? "border-[#FF6536]/50 neon-glow" : ""
       }`}
@@ -166,7 +171,7 @@ function PhaseCard({ phase, index }: { phase: typeof roadmapPhases[0]; index: nu
           </div>
         </div>
       )}
-    </div>
+    </motion.div>
   )
 }
 
@@ -185,7 +190,13 @@ export function RoadmapSection() {
 
       <div className="container mx-auto px-4 relative z-10">
         {/* Header */}
-        <div className="text-center mb-16">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-16"
+        >
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-panel mb-6">
             <Rocket className="w-4 h-4 text-[#FF6536]" />
             <span className="text-sm text-zinc-300">Our Journey</span>
@@ -199,7 +210,7 @@ export function RoadmapSection() {
           <p className="text-lg text-zinc-400 max-w-2xl mx-auto text-pretty">
             From genesis to the moon. Follow our journey as we build sustainable blockchain infrastructure for the community.
           </p>
-        </div>
+        </motion.div>
 
         {/* Timeline */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">

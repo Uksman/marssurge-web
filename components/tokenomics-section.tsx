@@ -1,6 +1,7 @@
 "use client"
 
 import { Coins, Flame, Users, Briefcase, LineChart, Megaphone } from "lucide-react"
+import { motion } from "framer-motion"
 
 const tokenDistribution = [
   { label: "Community Mining", percentage: 70, color: "#FF6536", amount: "3,500,000" },
@@ -20,7 +21,13 @@ function TokenChart() {
   let cumulativePercentage = 0
   
   return (
-    <div className="relative w-[280px] h-[280px] md:w-[320px] md:h-[320px]">
+    <motion.div 
+      initial={{ opacity: 0, scale: 0.8, rotate: -5 }}
+      whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.8, type: "spring", bounce: 0.4 }}
+      className="relative w-[280px] h-[280px] md:w-[320px] md:h-[320px]"
+    >
       {/* Glow effect */}
       <div 
         className="absolute inset-0 rounded-full animate-pulse-glow"
@@ -68,7 +75,7 @@ function TokenChart() {
         <span className="text-xl font-bold text-[#fafafa]">$MAG</span>
         <span className="text-xs text-zinc-500">5,000,000</span>
       </div>
-    </div>
+    </motion.div>
   )
 }
 
@@ -87,7 +94,13 @@ export function TokenomicsSection() {
 
       <div className="container mx-auto px-4 relative z-10">
         {/* Header */}
-        <div className="text-center mb-16">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-16"
+        >
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-panel mb-6">
             <Coins className="w-4 h-4 text-[#FF6536]" />
             <span className="text-sm text-zinc-300">Token Economics</span>
@@ -101,7 +114,7 @@ export function TokenomicsSection() {
           <p className="text-lg text-zinc-400 max-w-2xl mx-auto text-pretty">
             A hyper-deflationary token with real utility. Unlike inflationary tap-to-earn tokens, $MAG is scarce with only 5 million total supply. 70% reserved for community mining.
           </p>
-        </div>
+        </motion.div>
 
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           {/* Left - Chart */}
@@ -114,8 +127,15 @@ export function TokenomicsSection() {
             <h3 className="text-2xl font-semibold text-[#fafafa] mb-6">Token Distribution</h3>
             
             <div className="space-y-4 mb-8">
-              {tokenDistribution.map((item) => (
-                <div key={item.label} className="group">
+              {tokenDistribution.map((item, i) => (
+                <motion.div 
+                  key={item.label} 
+                  initial={{ opacity: 0, x: 20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: i * 0.1 }}
+                  className="group"
+                >
                   <div className="flex items-center justify-between mb-2">
                     <span className="text-zinc-300">{item.label}</span>
                     <div className="flex items-center gap-3">
@@ -124,27 +144,37 @@ export function TokenomicsSection() {
                     </div>
                   </div>
                   <div className="h-2 rounded-full bg-zinc-800 overflow-hidden">
-                    <div 
+                    <motion.div 
+                      initial={{ width: 0 }}
+                      whileInView={{ width: `${item.percentage}%` }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 1, delay: 0.5 + i * 0.1 }}
                       className="h-full rounded-full transition-all duration-500 group-hover:shadow-lg"
                       style={{ 
-                        width: `${item.percentage}%`,
                         backgroundColor: item.color,
                         boxShadow: `0 0 10px ${item.color}50`
                       }}
                     />
                   </div>
-                </div>
+                </motion.div>
               ))}
             </div>
             
             {/* Key highlights */}
             <div className="grid grid-cols-2 gap-4">
               {tokenHighlights.map((item, i) => (
-                <div key={i} className="glass-panel rounded-xl p-4">
+                <motion.div 
+                  key={i} 
+                  initial={{ opacity: 0, y: 10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4, delay: 0.8 + i * 0.1 }}
+                  className="glass-panel rounded-xl p-4"
+                >
                   <item.icon className="w-5 h-5 text-[#FF6536] mb-2" />
                   <div className="text-sm font-semibold text-[#fafafa] mb-1">{item.label}</div>
                   <div className="text-xs text-zinc-500">{item.desc}</div>
-                </div>
+                </motion.div>
               ))}
             </div>
           </div>

@@ -10,6 +10,7 @@ import {
   Rocket,
   Eye
 } from "lucide-react"
+import { motion } from "framer-motion"
 
 const features = [
   {
@@ -48,9 +49,12 @@ function FeatureCard({ feature, index }: { feature: typeof features[0]; index: n
   const Icon = feature.icon
   
   return (
-    <div 
+    <motion.div 
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.5, delay: index * 0.1 }}
       className="group relative glass-card rounded-2xl p-6 md:p-8 hover:border-[#FF6536]/30 transition-all duration-300 hover:-translate-y-1"
-      style={{ animationDelay: `${index * 0.1}s` }}
     >
       {/* Glow effect on hover */}
       <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
@@ -72,7 +76,7 @@ function FeatureCard({ feature, index }: { feature: typeof features[0]; index: n
       <p className="text-zinc-400 leading-relaxed">
         {feature.description}
       </p>
-    </div>
+    </motion.div>
   )
 }
 
@@ -91,7 +95,13 @@ export function FeaturesSection() {
 
       <div className="container mx-auto px-4 relative z-10">
         {/* Header */}
-        <div className="text-center mb-16">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-16"
+        >
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-panel mb-6">
             <Rocket className="w-4 h-4 text-[#FF6536]" />
             <span className="text-sm text-zinc-300">Ecosystem Features</span>
@@ -105,7 +115,7 @@ export function FeaturesSection() {
           <p className="text-lg text-zinc-400 max-w-2xl mx-auto text-pretty">
             A complete mobile ecosystem combining passive mining, market intelligence, skill-based gaming, and community engagement.
           </p>
-        </div>
+        </motion.div>
 
         {/* Features grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -115,7 +125,13 @@ export function FeaturesSection() {
         </div>
         
         {/* Whale Tracking highlight */}
-        <div className="mt-16">
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.95 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="mt-16"
+        >
           <div className="glass-card rounded-2xl p-8 md:p-12 relative overflow-hidden">
             <div 
               className="absolute inset-0 opacity-30"
@@ -126,38 +142,69 @@ export function FeaturesSection() {
             
             <div className="relative z-10 grid md:grid-cols-2 gap-8 items-center">
               <div>
-                <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#FF6536]/20 text-[#FF6536] text-sm font-medium mb-4">
+                <motion.div 
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: 0.2 }}
+                  className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#FF6536]/20 text-[#FF6536] text-sm font-medium mb-4"
+                >
                   <Eye className="w-4 h-4" />
                   Core Utility
-                </div>
-                <h3 className="text-2xl md:text-3xl font-bold text-[#fafafa] mb-4">
+                </motion.div>
+                <motion.h3 
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: 0.3 }}
+                  className="text-2xl md:text-3xl font-bold text-[#fafafa] mb-4"
+                >
                   Whale Tracking
-                </h3>
-                <p className="text-zinc-400 leading-relaxed mb-6">
+                </motion.h3>
+                <motion.p 
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: 0.4 }}
+                  className="text-zinc-400 leading-relaxed mb-6"
+                >
                   The core utility of Marssurge. Aggregates on-chain data to provide alerts on massive wallet movements. Access institutional-grade market data that empowers everyday users with the same intelligence the whales have.
-                </p>
+                </motion.p>
                 <div className="flex flex-wrap gap-3">
-                  {["Real-time Alerts", "On-chain Data", "Smart Money Signals"].map((tag) => (
-                    <span key={tag} className="px-3 py-1.5 rounded-full glass-panel text-xs text-zinc-300">
+                  {["Real-time Alerts", "On-chain Data", "Smart Money Signals"].map((tag, idx) => (
+                    <motion.span 
+                      key={tag} 
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      whileInView={{ opacity: 1, scale: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.3, delay: 0.5 + idx * 0.1 }}
+                      className="px-3 py-1.5 rounded-full glass-panel text-xs text-zinc-300"
+                    >
                       {tag}
-                    </span>
+                    </motion.span>
                   ))}
                 </div>
               </div>
               
               <div className="flex justify-center">
-                <div className="relative w-48 h-48">
+                <motion.div 
+                  initial={{ opacity: 0, scale: 0.8, rotate: -10 }}
+                  whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.8, delay: 0.4 }}
+                  className="relative w-48 h-48"
+                >
                   <div className="absolute inset-0 rounded-full bg-gradient-to-br from-[#FF6536]/20 to-transparent animate-pulse" />
                   <div className="absolute inset-4 rounded-full bg-gradient-to-br from-[#FF6536]/30 to-transparent animate-pulse" style={{ animationDelay: "0.5s" }} />
                   <div className="absolute inset-8 rounded-full bg-gradient-to-br from-[#FF6536]/40 to-transparent animate-pulse" style={{ animationDelay: "1s" }} />
                   <div className="absolute inset-0 flex items-center justify-center">
                     <Eye className="w-16 h-16 text-[#FF6536]" />
                   </div>
-                </div>
+                </motion.div>
               </div>
             </div>
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   )

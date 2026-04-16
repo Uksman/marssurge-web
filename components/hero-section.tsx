@@ -3,6 +3,7 @@
 import { Button } from "@/components/ui/button"
 import { Rocket, Cloud, Trophy } from "lucide-react"
 import { GooglePlayIcon, AppStoreIcon } from "@/components/icons"
+import { motion } from "framer-motion"
 
 function FloatingParticle({ delay, size, x, y }: { delay: number; size: number; x: number; y: number }) {
   return (
@@ -42,7 +43,12 @@ function MagToken({ delay, angle, distance }: { delay: number; angle: number; di
 
 function PhoneMockup() {
   return (
-    <div className="relative">
+    <motion.div 
+      initial={{ opacity: 0, scale: 0.9, y: 20 }}
+      animate={{ opacity: 1, scale: 1, y: 0 }}
+      transition={{ duration: 0.8, delay: 0.4 }}
+      className="relative"
+    >
       {/* Phone frame */}
       <div 
         className="relative w-[280px] h-[560px] md:w-[320px] md:h-[640px] rounded-[40px] bg-gradient-to-b from-zinc-800 to-zinc-900 p-2 shadow-2xl animate-float"
@@ -142,7 +148,7 @@ function PhoneMockup() {
         <MagToken delay={4.5} angle={180} distance={250} />
         <MagToken delay={7.5} angle={300} distance={250} />
       </div>
-    </div>
+    </motion.div>
   )
 }
 
@@ -175,24 +181,48 @@ export function HeroSection() {
       {/* Content */}
       <div className="container mx-auto px-4 grid lg:grid-cols-2 gap-12 items-center relative z-10">
         {/* Left column - Text */}
-        <div className="text-center lg:text-left order-2 lg:order-1">
+        <motion.div 
+          initial={{ opacity: 0, x: -50 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="text-center lg:text-left order-2 lg:order-1"
+        >
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-panel mb-6">
             <div className="w-2 h-2 rounded-full bg-[#FF6536] animate-pulse" />
             <span className="text-sm text-zinc-300">Blockchain-Powered Mining</span>
           </div>
           
-          <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight text-balance">
+          <motion.h1 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight text-balance"
+          >
             <span className="text-[#fafafa]">Think </span>
             <span className="text-[#FF6536] neon-text">Unlimited</span>
             <br />
             <span className="text-[#fafafa]">Possibilities</span>
-          </h1>
+          </motion.h1>
           
-          <p className="text-lg md:text-xl text-zinc-400 mb-8 max-w-lg mx-auto lg:mx-0 leading-relaxed text-pretty">
+          <motion.p 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="text-lg md:text-xl text-zinc-400 mb-8 max-w-lg mx-auto lg:mx-0 leading-relaxed text-pretty"
+          >
             Marssurge ($MAG) is a free mobile app for simulated mining, market intelligence, and community engagement. Join a growing blockchain ecosystem focused on transparency, security, and sustainable development.
-          </p>
+          </motion.p>
           
-          <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
+          >
             <Button 
               size="lg" 
               className="bg-[#FF6536] hover:bg-[#D64A1F] text-[#18181b] font-semibold px-8 py-6 text-lg rounded-xl animate-pulse-glow"
@@ -212,22 +242,35 @@ export function HeroSection() {
               <AppStoreIcon className="w-5 h-5 mr-2" />
               App Store (Coming Soon)
             </Button>
-          </div>
+          </motion.div>
           
           {/* Stats */}
-          <div className="grid grid-cols-3 gap-6 mt-12 pt-8 border-t border-zinc-800">
+          <motion.div 
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1, delay: 0.6 }}
+            className="grid grid-cols-3 gap-6 mt-12 pt-8 border-t border-zinc-800"
+          >
             {[
               { value: "50K+", label: "Active Miners" },
               { value: "5M", label: "Total $MAG Supply" },
               { value: "70%", label: "Community Allocation" },
-            ].map((stat) => (
-              <div key={stat.label} className="text-center lg:text-left">
+            ].map((stat, i) => (
+              <motion.div 
+                key={stat.label} 
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.7 + i * 0.1 }}
+                className="text-center lg:text-left"
+              >
                 <div className="text-2xl md:text-3xl font-bold text-[#FF6536]">{stat.value}</div>
                 <div className="text-xs md:text-sm text-zinc-500">{stat.label}</div>
-              </div>
+              </motion.div>
             ))}
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
         
         {/* Right column - Phone mockup */}
         <div className="flex justify-center order-1 lg:order-2">

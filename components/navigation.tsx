@@ -5,6 +5,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Menu, X, Download, FileText } from "lucide-react"
+import { motion, AnimatePresence } from "framer-motion"
 
 const navLinks = [
   { label: "Features", href: "#features" },
@@ -26,7 +27,10 @@ export function Navigation() {
   }, [])
 
   return (
-    <nav 
+    <motion.nav 
+      initial={{ y: -100, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.8, ease: "easeOut" }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled 
           ? "glass-panel py-3" 
@@ -87,35 +91,46 @@ export function Navigation() {
         </div>
 
         {/* Mobile menu */}
-        {isMobileMenuOpen && (
-          <div className="md:hidden mt-4 pb-4 border-t border-zinc-800 pt-4">
-            <div className="flex flex-col gap-4">
-              {navLinks.map((link) => (
-                <a
-                  key={link.label}
-                  href={link.href}
-                  className="text-zinc-400 hover:text-[#FF6536] transition-colors py-2 flex items-center gap-2"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  {link.icon && <link.icon className="w-4 h-4" />}
-                  {link.label}
-                </a>
-              ))}
-              <div className="flex flex-col gap-2 pt-4 border-t border-zinc-800">
-                <Button 
-                  className="bg-[#FF6536] hover:bg-[#D64A1F] text-[#18181b] font-semibold"
-                  asChild
-                >
-                  <a href="https://play.google.com/store/apps/details?id=com.marssurge.app" target="_blank" rel="noopener noreferrer">
-                    <Download className="w-4 h-4 mr-2" />
-                    Download App
-                  </a>
-                </Button>
+        <AnimatePresence>
+          {isMobileMenuOpen && (
+            <motion.div 
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: "auto", opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              className="md:hidden mt-4 pb-4 border-t border-zinc-800 pt-4 overflow-hidden"
+            >
+              <div className="flex flex-col gap-4">
+                {navLinks.map((link, i) => (
+                  <motion.a
+                    key={link.label}
+                    href={link.href}
+                    initial={{ x: -20, opacity: 0 }}
+                    animate={{ x: 0, opacity: 1 }}
+                    transition={{ delay: i * 0.05 }}
+                    className="text-zinc-400 hover:text-[#FF6536] transition-colors py-2 flex items-center gap-2"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    {link.icon && <link.icon className="w-4 h-4" />}
+                    {link.label}
+                  </motion.a>
+                ))}
+                <div className="flex flex-col gap-2 pt-4 border-t border-zinc-800">
+                  <Button 
+                    className="bg-[#FF6536] hover:bg-[#D64A1F] text-[#18181b] font-semibold"
+                    asChild
+                  >
+                    <a href="https://play.google.com/store/apps/details?id=com.marssurge.app" target="_blank" rel="noopener noreferrer">
+                      <Download className="w-4 h-4 mr-2" />
+                      Download App
+                    </a>
+                  </Button>
+                </div>
               </div>
-            </div>
-          </div>
-        )}
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
-    </nav>
+    </motion.nav>
   )
 }
