@@ -1,0 +1,247 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  /* Marssurge Space Theme */
+  --background: #18181b;
+  --foreground: #fafafa;
+  --card: rgba(255, 255, 255, 0.05);
+  --card-foreground: #fafafa;
+  --popover: rgba(24, 24, 27, 0.95);
+  --popover-foreground: #fafafa;
+  --primary: #FF6536;
+  --primary-foreground: #18181b;
+  --secondary: rgba(255, 101, 54, 0.15);
+  --secondary-foreground: #FF6536;
+  --muted: rgba(255, 255, 255, 0.06);
+  --muted-foreground: #a1a1aa;
+  --accent: #FF6536;
+  --accent-foreground: #18181b;
+  --destructive: #ef4444;
+  --destructive-foreground: #fafafa;
+  --border: rgba(255, 255, 255, 0.1);
+  --input: rgba(255, 255, 255, 0.08);
+  --ring: #FF6536;
+  --chart-1: #FF6536;
+  --chart-2: #FF8F6B;
+  --chart-3: #FFB59A;
+  --chart-4: #D64A1F;
+  --chart-5: #A33A18;
+  --radius: 0.75rem;
+  
+  /* Custom Marssurge tokens */
+  --mars-orange: #FF6536;
+  --mars-orange-glow: rgba(255, 101, 54, 0.4);
+  --mars-orange-dim: rgba(255, 101, 54, 0.15);
+  --space-black: #18181b;
+  --space-gray: #27272a;
+  --nebula-purple: #8B5CF6;
+  --stellar-white: #fafafa;
+  --glass: rgba(255, 255, 255, 0.05);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-highlight: rgba(255, 255, 255, 0.15);
+}
+
+@theme inline {
+  --font-sans: 'Outfit', 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  
+  /* Custom colors */
+  --color-mars-orange: var(--mars-orange);
+  --color-mars-glow: var(--mars-orange-glow);
+  --color-mars-dim: var(--mars-orange-dim);
+  --color-space-black: var(--space-black);
+  --color-space-gray: var(--space-gray);
+  --color-nebula: var(--nebula-purple);
+  --color-stellar: var(--stellar-white);
+  --color-glass: var(--glass);
+  --color-glass-border: var(--glass-border);
+  --color-glass-highlight: var(--glass-highlight);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Custom animations */
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotateY(0deg); }
+  50% { transform: translateY(-20px) rotateY(5deg); }
+}
+
+@keyframes orbit {
+  from { transform: rotate(0deg) translateX(120px) rotate(0deg); }
+  to { transform: rotate(360deg) translateX(120px) rotate(-360deg); }
+}
+
+@keyframes orbit-reverse {
+  from { transform: rotate(360deg) translateX(100px) rotate(-360deg); }
+  to { transform: rotate(0deg) translateX(100px) rotate(0deg); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { 
+    box-shadow: 0 0 20px rgba(255, 101, 54, 0.3), 
+                0 0 40px rgba(255, 101, 54, 0.2),
+                0 0 60px rgba(255, 101, 54, 0.1);
+  }
+  50% { 
+    box-shadow: 0 0 30px rgba(255, 101, 54, 0.5), 
+                0 0 60px rgba(255, 101, 54, 0.3),
+                0 0 90px rgba(255, 101, 54, 0.2);
+  }
+}
+
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes particle-float {
+  0%, 100% { 
+    transform: translateY(0) translateX(0) scale(1);
+    opacity: 0.6;
+  }
+  25% { 
+    transform: translateY(-30px) translateX(15px) scale(1.2);
+    opacity: 1;
+  }
+  50% { 
+    transform: translateY(-50px) translateX(-10px) scale(0.8);
+    opacity: 0.8;
+  }
+  75% { 
+    transform: translateY(-20px) translateX(20px) scale(1.1);
+    opacity: 0.9;
+  }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes gradient-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-orbit {
+  animation: orbit 20s linear infinite;
+}
+
+.animate-orbit-reverse {
+  animation: orbit-reverse 15s linear infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 3s ease-in-out infinite;
+}
+
+.animate-spin-slow {
+  animation: spin-slow 30s linear infinite;
+}
+
+.animate-particle {
+  animation: particle-float 4s ease-in-out infinite;
+}
+
+.animate-shimmer {
+  animation: shimmer 3s linear infinite;
+  background-size: 200% 100%;
+}
+
+.animate-gradient {
+  animation: gradient-shift 8s ease infinite;
+  background-size: 200% 200%;
+}
+
+/* Glassmorphism utilities */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.glass-card {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.08) 0%,
+    rgba(255, 255, 255, 0.02) 100%
+  );
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.neon-glow {
+  box-shadow: 
+    0 0 20px rgba(255, 101, 54, 0.3),
+    0 0 40px rgba(255, 101, 54, 0.2),
+    inset 0 0 20px rgba(255, 101, 54, 0.1);
+}
+
+.neon-text {
+  text-shadow: 
+    0 0 10px rgba(255, 101, 54, 0.8),
+    0 0 20px rgba(255, 101, 54, 0.6),
+    0 0 30px rgba(255, 101, 54, 0.4);
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #18181b;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 101, 54, 0.3);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 101, 54, 0.5);
+}
