@@ -24,8 +24,8 @@ const footerLinks = {
     { label: "YouTube", href: "https://youtube.com/@MarsSurge" },
   ],
   legal: [
-    { label: "Privacy Policy", href: "#" },
-    { label: "Terms of Service", href: "#" },
+    { label: "Privacy Policy", href: "/privacy-policy" },
+    { label: "Terms of Service", href: "/terms-of-service" },
     { label: "Disclaimer", href: "#" },
   ],
 }
