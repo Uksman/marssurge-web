@@ -8,9 +8,9 @@ import { Menu, X, Download, FileText } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
 
 const navLinks = [
-  { label: "Features", href: "#features" },
-  { label: "Tokenomics", href: "#tokenomics" },
-  { label: "Roadmap", href: "#roadmap" },
+  { label: "Features", href: "/#features" },
+  { label: "Tokenomics", href: "/#tokenomics" },
+  { label: "Roadmap", href: "/#roadmap" },
   { label: "Whitepaper", href: "/whitepaper", icon: FileText },
 ]
 
