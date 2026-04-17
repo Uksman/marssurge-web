@@ -48,7 +48,7 @@ export function Navigation() {
               height={40} 
               className="rounded-xl group-hover:animate-pulse-glow transition-all"
             />
-            <span className="text-xl font-bold text-[#fafafa] tracking-tight">
+            <span className="text-xl font-bold text-foreground tracking-tight">
               MARSSURGE
             </span>
           </Link>
@@ -108,7 +108,7 @@ export function Navigation() {
                     initial={{ x: -20, opacity: 0 }}
                     animate={{ x: 0, opacity: 1 }}
                     transition={{ delay: i * 0.05 }}
-                    className="text-zinc-400 hover:text-[#FF6536] transition-colors py-2 flex items-center gap-2"
+                    className="text-zinc-500 hover:text-foreground transition-colors py-2 flex items-center gap-2"
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
                     {link.icon && <link.icon className="w-4 h-4" />}

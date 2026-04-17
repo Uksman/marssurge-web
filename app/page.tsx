@@ -8,7 +8,7 @@ import { Footer } from "@/components/footer"
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-[#18181b] overflow-x-hidden">
+    <main className="min-h-screen bg-background overflow-x-hidden">
       {/* Star field background */}
       <div 
         className="fixed inset-0 pointer-events-none"

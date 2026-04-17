@@ -168,7 +168,7 @@ function parseContent(content: string) {
     // H3 headers
     if (line.startsWith('### ')) {
       elements.push(
-        <h3 key={index} className="text-lg font-semibold text-[#fafafa] mt-6 mb-3">
+        <h3 key={index} className="text-lg font-semibold text-foreground mt-6 mb-3">
           {line.replace('### ', '')}
         </h3>
       )
@@ -179,9 +179,9 @@ function parseContent(content: string) {
     if (line.includes('**')) {
       const parts = line.split(/\*\*(.*?)\*\*/g)
       elements.push(
-        <p key={index} className="text-zinc-400 mb-2">
+        <p key={index} className="text-muted-foreground mb-2">
           {parts.map((part, i) => 
-            i % 2 === 1 ? <strong key={i} className="text-[#fafafa]">{part}</strong> : part
+            i % 2 === 1 ? <strong key={i} className="text-foreground">{part}</strong> : part
           )}
         </p>
       )
@@ -207,7 +207,7 @@ function parseContent(content: string) {
     
     // Regular paragraphs
     elements.push(
-      <p key={index} className="text-zinc-400 mb-3 leading-relaxed">
+      <p key={index} className="text-muted-foreground mb-3 leading-relaxed">
         {line}
       </p>
     )
@@ -218,7 +218,7 @@ function parseContent(content: string) {
 
 export default function WhitepaperPage() {
   return (
-    <main className="min-h-screen bg-[#18181b] overflow-x-hidden">
+    <main className="min-h-screen bg-background overflow-x-hidden">
       {/* Star field background */}
       <div 
         className="fixed inset-0 pointer-events-none"
@@ -252,7 +252,7 @@ export default function WhitepaperPage() {
               <FileText className="w-4 h-4 text-[#FF6536]" />
               v1.0 • December 2025
             </div>
-            <h1 className="text-4xl md:text-6xl font-bold text-[#fafafa] mb-6 text-balance">
+            <h1 className="text-4xl md:text-6xl font-bold text-foreground mb-6 text-balance">
               <span className="text-[#FF6536] neon-text">MARSSURGE</span> NETWORK
               <br />WHITEPAPER
             </h1>
@@ -268,7 +268,7 @@ export default function WhitepaperPage() {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <div className="glass-panel p-6 md:p-8 rounded-2xl">
-              <h2 className="text-xl font-semibold text-[#fafafa] mb-6">Table of Contents</h2>
+              <h2 className="text-xl font-semibold text-foreground mb-6">Table of Contents</h2>
               <nav className="grid md:grid-cols-2 gap-3">
                 {sections.map((section) => (
                   <a
@@ -277,7 +277,7 @@ export default function WhitepaperPage() {
                     className="flex items-center gap-3 px-4 py-3 rounded-xl bg-zinc-800/30 hover:bg-zinc-800/60 border border-zinc-700/30 hover:border-[#FF6536]/30 transition-all group"
                   >
                     <section.icon className="w-5 h-5 text-[#FF6536]" />
-                    <span className="text-zinc-400 group-hover:text-[#fafafa] transition-colors">
+                    <span className="text-muted-foreground group-hover:text-foreground transition-colors">
                       {section.title}
                     </span>
                   </a>
@@ -302,7 +302,7 @@ export default function WhitepaperPage() {
                   <div className="w-12 h-12 rounded-xl bg-[#FF6536]/10 border border-[#FF6536]/30 flex items-center justify-center">
                     <section.icon className="w-6 h-6 text-[#FF6536]" />
                   </div>
-                  <h2 className="text-2xl md:text-3xl font-bold text-[#fafafa]">
+                  <h2 className="text-2xl md:text-3xl font-bold text-foreground">
                     {section.title}
                   </h2>
                 </div>

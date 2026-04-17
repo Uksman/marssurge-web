@@ -3,8 +3,9 @@
 import { Button } from "@/components/ui/button"
 import { Rocket, Cloud, Trophy } from "lucide-react"
 import { GooglePlayIcon, AppStoreIcon } from "@/components/icons"
-import { motion, animate, useInView } from "framer-motion"
-import { useEffect, useRef } from "react"
+import { motion, animate, useInView, useMotionValue, useSpring, useTransform } from "framer-motion"
+import { useEffect, useRef, useState } from "react"
+import { Starfield } from "@/components/starfield"
 
 function AnimatedCounter({ from = 0, to, duration = 2, suffix = "", format = false }: { from?: number; to: number; duration?: number; suffix?: string; format?: boolean }) {
   const nodeRef = useRef<HTMLSpanElement>(null)
@@ -31,21 +32,7 @@ function AnimatedCounter({ from = 0, to, duration = 2, suffix = "", format = fal
   return <span ref={nodeRef}>{format ? from.toLocaleString() : from}{suffix}</span>
 }
 
-function FloatingParticle({ delay, size, x, y }: { delay: number; size: number; x: number; y: number }) {
-  return (
-    <div
-      className="absolute rounded-full bg-[#FF6536] animate-particle opacity-60"
-      style={{
-        width: size,
-        height: size,
-        left: `${x}%`,
-        top: `${y}%`,
-        animationDelay: `${delay}s`,
-        boxShadow: "0 0 10px rgba(255, 101, 54, 0.6)",
-      }}
-    />
-  )
-}
+// FloatingParticle removed as it's handled by Starfield if needed.
 
 function MagToken({ delay, angle, distance }: { delay: number; angle: number; distance: number }) {
   return (
@@ -68,51 +55,58 @@ function MagToken({ delay, angle, distance }: { delay: number; angle: number; di
 }
 
 function PhoneMockup() {
+  const mouseX = useMotionValue(0)
+  const mouseY = useMotionValue(0)
+  const [bursts, setBursts] = useState<{ id: number; x: number; y: number }[]>([])
+  
+  const springConfig = { damping: 20, stiffness: 200, mass: 0.5 }
+  const x = useSpring(mouseX, springConfig)
+  const y = useSpring(mouseY, springConfig)
+  
+  const rotateX = useTransform(y, [-0.5, 0.5], [10, -10])
+  const rotateY = useTransform(x, [-0.5, 0.5], [-10, 10])
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect()
+    const xPct = (e.clientX - rect.left) / rect.width - 0.5
+    const yPct = (e.clientY - rect.top) / rect.height - 0.5
+    mouseX.set(xPct)
+    mouseY.set(yPct)
+  }
+
+  const handleMouseLeave = () => {
+    mouseX.set(0)
+    mouseY.set(0)
+  }
+
+  const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect()
+    const cx = e.clientX - rect.left
+    const cy = e.clientY - rect.top
+    setBursts(b => [...b, { id: Date.now() + Math.random(), x: cx, y: cy }])
+  }
+
   return (
-    <motion.div 
-      initial={{ opacity: 0, scale: 0.9, y: 20 }}
-      animate={{ opacity: 1, scale: 1, y: 0 }}
-      transition={{ duration: 0.8, delay: 0.4 }}
-      className="relative"
+    <div 
+      className="relative [perspective:1000px] cursor-pointer w-full h-[500px] md:h-[600px] flex items-center justify-center" 
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      onClick={handleClick}
     >
-      {/* Phone frame */}
+      {/* Orbital rings behind the 3D phone */}
       <div 
-        className="relative w-[280px] md:w-[320px] rounded-[40px] bg-gradient-to-b from-zinc-800 to-zinc-900 p-2 shadow-2xl animate-float"
-        style={{
-          boxShadow: `
-            0 0 60px rgba(255, 101, 54, 0.3),
-            0 0 120px rgba(255, 101, 54, 0.15),
-            0 25px 50px rgba(0, 0, 0, 0.5),
-            inset 0 1px 0 rgba(255, 255, 255, 0.1)
-          `
-        }}
-      >
-        {/* Screen */}
-        <div className="relative w-full rounded-[32px] bg-[#18181b] overflow-hidden border-[4px] border-[#18181b]">
-          {/* Phone mock overlay */}
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-6 bg-zinc-900 rounded-b-3xl z-10 shadow-sm" />
-          <img 
-            src="/images/HomeScreen.jpeg" 
-            alt="Marssurge App Home Screen"
-            className="w-full h-auto block" 
-          />
-        </div>
-      </div>
-      
-      {/* Orbital ring */}
-      <div 
-        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] md:w-[500px] md:h-[500px] rounded-full border border-[#FF6536]/20 animate-spin-slow"
+        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] md:w-[500px] md:h-[500px] rounded-full border border-[#FF6536]/20 animate-spin-slow pointer-events-none"
         style={{ animationDuration: "40s" }}
       />
       <div 
-        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[480px] h-[480px] md:w-[600px] md:h-[600px] rounded-full border border-[#FF6536]/10"
+        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[480px] h-[480px] md:w-[600px] md:h-[600px] rounded-full border border-[#FF6536]/10 pointer-events-none"
         style={{ 
           animation: "spin-slow 60s linear infinite reverse",
         }}
       />
       
-      {/* Orbiting MAG tokens */}
-      <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+      {/* Orbiting MAG tokens securely placed behind the 3D context */}
+      <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none">
         <MagToken delay={0} angle={0} distance={200} />
         <MagToken delay={3} angle={120} distance={200} />
         <MagToken delay={6} angle={240} distance={200} />
@@ -120,7 +114,53 @@ function PhoneMockup() {
         <MagToken delay={4.5} angle={180} distance={250} />
         <MagToken delay={7.5} angle={300} distance={250} />
       </div>
-    </motion.div>
+
+      <motion.div 
+        initial={{ opacity: 0, scale: 0.9, y: 20 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 0.4 }}
+        style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
+        className="relative z-10 pointer-events-none"
+      >
+        {/* Phone frame */}
+        <div 
+          className="relative w-[280px] md:w-[320px] rounded-[40px] bg-gradient-to-b from-zinc-800 to-zinc-900 p-2 shadow-2xl animate-float pointer-events-auto"
+          style={{
+            boxShadow: `
+              0 0 60px rgba(255, 101, 54, 0.3),
+              0 0 120px rgba(255, 101, 54, 0.15),
+              0 25px 50px rgba(0, 0, 0, 0.5),
+              inset 0 1px 0 rgba(0, 0, 0, 0.1)
+            `
+          }}
+        >
+          {/* Screen */}
+          <div className="relative w-full rounded-[32px] bg-background overflow-hidden border-[4px] border-background">
+            {/* Phone mock overlay */}
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-6 bg-background rounded-b-3xl z-10 shadow-sm" />
+            <img 
+              src="/images/HomeScreen.jpeg" 
+              alt="Marssurge App Home Screen"
+              className="w-full h-auto block" 
+            />
+          </div>
+        </div>
+        
+        {/* Click Bursts */}
+        {bursts.map(b => (
+          <motion.div
+             key={b.id}
+             initial={{ opacity: 1, scale: 0.5, y: b.y, x: b.x }}
+             animate={{ opacity: 0, scale: 1.5, y: b.y - 100, x: b.x + (Math.random() * 40 - 20) }}
+             transition={{ duration: 1, ease: "easeOut" }}
+             className="absolute pointer-events-none z-50 text-[#FF6536] font-bold text-xl drop-shadow-[0_0_10px_rgba(255,101,54,0.8)]"
+             onAnimationComplete={() => setBursts(prev => prev.filter(p => p.id !== b.id))}
+          >
+            +$MAG
+          </motion.div>
+        ))}
+      </motion.div>
+    </div>
   )
 }
 
@@ -129,24 +169,14 @@ export function HeroSection() {
     <section 
       className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20"
     >
-      {/* Particle background */}
-      <div className="absolute inset-0 overflow-hidden">
-        {Array.from({ length: 30 }).map((_, i) => (
-          <FloatingParticle
-            key={i}
-            delay={i * 0.3}
-            size={Math.random() * 4 + 2}
-            x={Math.random() * 100}
-            y={Math.random() * 100}
-          />
-        ))}
-      </div>
+      {/* Starfield Parallax background */}
+      <Starfield />
 
       {/* Radial gradient overlay */}
       <div 
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: "radial-gradient(ellipse at center, transparent 0%, #18181b 70%)"
+          background: "radial-gradient(ellipse at center, transparent 0%, var(--background) 70%)"
         }}
       />
 
@@ -172,10 +202,10 @@ export function HeroSection() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight text-balance"
           >
-            <span className="text-[#fafafa]">Think </span>
+            <span className="text-foreground">Think </span>
             <span className="text-[#FF6536] neon-text">Unlimited</span>
             <br />
-            <span className="text-[#fafafa]">Possibilities</span>
+            <span className="text-foreground">Possibilities</span>
           </motion.h1>
           
           <motion.p 
@@ -253,7 +283,7 @@ export function HeroSection() {
       </div>
       
       {/* Bottom gradient fade */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#18181b] to-transparent pointer-events-none" />
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent pointer-events-none" />
     </section>
   )
 }

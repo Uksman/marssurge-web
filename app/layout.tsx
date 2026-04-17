@@ -25,7 +25,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={`${outfit.variable} ${inter.variable} bg-background`}>
+    <html lang="en" className={`${outfit.variable} ${inter.variable} bg-background`} suppressHydrationWarning>
       <body className="font-sans antialiased">
         {children}
         <ScrollToTop />
