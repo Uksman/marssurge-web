@@ -3,7 +3,33 @@
 import { Button } from "@/components/ui/button"
 import { Rocket, Cloud, Trophy } from "lucide-react"
 import { GooglePlayIcon, AppStoreIcon } from "@/components/icons"
-import { motion } from "framer-motion"
+import { motion, animate, useInView } from "framer-motion"
+import { useEffect, useRef } from "react"
+
+function AnimatedCounter({ from = 0, to, duration = 2, suffix = "", format = false }: { from?: number; to: number; duration?: number; suffix?: string; format?: boolean }) {
+  const nodeRef = useRef<HTMLSpanElement>(null)
+  const inView = useInView(nodeRef, { once: true })
+
+  useEffect(() => {
+    if (!inView) return
+    const node = nodeRef.current
+    if (!node) return
+
+    const controls = animate(from, to, {
+      duration,
+      ease: "easeOut",
+      onUpdate(value) {
+        const rounded = Math.round(value)
+        const formatted = format ? rounded.toLocaleString() : rounded
+        node.textContent = `${formatted}${suffix}`
+      },
+    })
+
+    return () => controls.stop()
+  }, [from, to, duration, inView, suffix, format])
+
+  return <span ref={nodeRef}>{format ? from.toLocaleString() : from}{suffix}</span>
+}
 
 function FloatingParticle({ delay, size, x, y }: { delay: number; size: number; x: number; y: number }) {
   return (
@@ -24,7 +50,7 @@ function FloatingParticle({ delay, size, x, y }: { delay: number; size: number; 
 function MagToken({ delay, angle, distance }: { delay: number; angle: number; distance: number }) {
   return (
     <div
-      className="absolute w-8 h-8 rounded-full bg-gradient-to-br from-[#FF6536] to-[#D64A1F] flex items-center justify-center text-[10px] font-bold text-[#18181b] shadow-lg"
+      className="absolute w-8 h-8 rounded-full shadow-lg border border-[#FF6536]/50 overflow-hidden"
       style={{
         animation: `orbit ${15 + delay * 2}s linear infinite`,
         animationDelay: `${delay}s`,
@@ -36,7 +62,7 @@ function MagToken({ delay, angle, distance }: { delay: number; angle: number; di
         transform: `rotate(${angle}deg) translateX(${distance}px) rotate(-${angle}deg)`,
       }}
     >
-      MAG
+      <img src="/images/Token.jpeg" alt="MAG Token" className="w-full h-full object-cover" />
     </div>
   )
 }
@@ -51,7 +77,7 @@ function PhoneMockup() {
     >
       {/* Phone frame */}
       <div 
-        className="relative w-[280px] h-[560px] md:w-[320px] md:h-[640px] rounded-[40px] bg-gradient-to-b from-zinc-800 to-zinc-900 p-2 shadow-2xl animate-float"
+        className="relative w-[280px] md:w-[320px] rounded-[40px] bg-gradient-to-b from-zinc-800 to-zinc-900 p-2 shadow-2xl animate-float"
         style={{
           boxShadow: `
             0 0 60px rgba(255, 101, 54, 0.3),
@@ -62,68 +88,14 @@ function PhoneMockup() {
         }}
       >
         {/* Screen */}
-        <div className="relative w-full h-full rounded-[32px] bg-[#18181b] overflow-hidden">
-          {/* Status bar */}
-          <div className="absolute top-0 left-0 right-0 h-12 flex items-center justify-between px-6 z-10">
-            <span className="text-xs text-zinc-400">9:41</span>
-            <div className="w-24 h-6 bg-black rounded-full" />
-            <div className="flex gap-1">
-              <div className="w-4 h-2 bg-zinc-400 rounded-sm" />
-            </div>
-          </div>
-          
-          {/* App content */}
-          <div className="absolute inset-0 flex flex-col items-center justify-center p-6">
-            {/* Logo */}
-            <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-[#FF6536] to-[#D64A1F] flex items-center justify-center mb-4 animate-pulse-glow">
-              <Rocket className="w-10 h-10 text-[#18181b]" />
-            </div>
-            
-            <h3 className="text-xl font-bold text-[#fafafa] mb-1">MARSSURGE</h3>
-            <p className="text-xs text-zinc-400 mb-6">Mine. Learn. Earn.</p>
-            
-            {/* Mining card */}
-            <div className="w-full glass-card rounded-2xl p-4 mb-4">
-              <p className="text-xs text-zinc-400 mb-1">Mining Balance</p>
-              <div className="flex items-baseline gap-2">
-                <span className="text-2xl font-bold text-[#FF6536]">12,450</span>
-                <span className="text-sm text-zinc-400">$MAG</span>
-              </div>
-              <div className="mt-2 flex items-center gap-2">
-                <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-                <span className="text-xs text-green-400">Mining Active</span>
-              </div>
-            </div>
-            
-            {/* Action buttons */}
-            <div className="grid grid-cols-2 gap-3 w-full">
-              <div className="glass-panel rounded-xl p-3 text-center">
-                <Cloud className="w-5 h-5 text-[#FF6536] mx-auto mb-1" />
-                <span className="text-xs text-zinc-300">Cloud Mine</span>
-              </div>
-              <div className="glass-panel rounded-xl p-3 text-center">
-                <Trophy className="w-5 h-5 text-[#FF6536] mx-auto mb-1" />
-                <span className="text-xs text-zinc-300">Leaderboard</span>
-              </div>
-            </div>
-          </div>
-          
-          {/* Bottom nav */}
-          <div className="absolute bottom-4 left-4 right-4 h-16 glass-panel rounded-2xl flex items-center justify-around">
-            {[
-              { name: "Home", active: true },
-              { name: "Mine", active: false },
-              { name: "Games", active: false },
-              { name: "News", active: false },
-            ].map((item) => (
-              <div key={item.name} className={`flex flex-col items-center ${item.active ? "text-[#FF6536]" : "text-zinc-500"}`}>
-                <div className={`w-6 h-6 rounded-lg ${item.active ? "bg-[#FF6536]/20" : ""} flex items-center justify-center`}>
-                  <div className="w-3 h-3 rounded-sm bg-current" />
-                </div>
-                <span className="text-[10px] mt-1">{item.name}</span>
-              </div>
-            ))}
-          </div>
+        <div className="relative w-full rounded-[32px] bg-[#18181b] overflow-hidden border-[4px] border-[#18181b]">
+          {/* Phone mock overlay */}
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-6 bg-zinc-900 rounded-b-3xl z-10 shadow-sm" />
+          <img 
+            src="/images/HomeScreen.jpeg" 
+            alt="Marssurge App Home Screen"
+            className="w-full h-auto block" 
+          />
         </div>
       </div>
       
@@ -253,9 +225,9 @@ export function HeroSection() {
             className="grid grid-cols-3 gap-6 mt-12 pt-8 border-t border-zinc-800"
           >
             {[
-              { value: "50K+", label: "Active Miners" },
-              { value: "5M", label: "Total $MAG Supply" },
-              { value: "70%", label: "Community Allocation" },
+              { to: 50, suffix: "K+", label: "Active Miners" },
+              { to: 5, suffix: "M", label: "Total $MAG Supply" },
+              { to: 70, suffix: "%", label: "Community Allocation" },
             ].map((stat, i) => (
               <motion.div 
                 key={stat.label} 
@@ -265,7 +237,9 @@ export function HeroSection() {
                 transition={{ duration: 0.5, delay: 0.7 + i * 0.1 }}
                 className="text-center lg:text-left"
               >
-                <div className="text-2xl md:text-3xl font-bold text-[#FF6536]">{stat.value}</div>
+                <div className="text-2xl md:text-3xl font-bold text-[#FF6536]">
+                  <AnimatedCounter to={stat.to} suffix={stat.suffix} duration={2} />
+                </div>
                 <div className="text-xs md:text-sm text-zinc-500">{stat.label}</div>
               </motion.div>
             ))}

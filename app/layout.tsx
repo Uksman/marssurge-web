@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Outfit, Inter } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
+import { ScrollToTop } from '@/components/scroll-to-top'
 
 const outfit = Outfit({ 
   subsets: ["latin"],
@@ -27,6 +28,7 @@ export default function RootLayout({
     <html lang="en" className={`${outfit.variable} ${inter.variable} bg-background`}>
       <body className="font-sans antialiased">
         {children}
+        <ScrollToTop />
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>
     </html>
