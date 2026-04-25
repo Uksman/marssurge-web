@@ -27,7 +27,7 @@ const roadmapPhases = [
       { text: "App Beta Launch (Android/iOS)", completed: true },
       { text: "Mining Start (Genesis Block)", completed: true },
       { text: "KYC Compliance", completed: false },
-      { text: "50,000 Active Miners Target", completed: false },
+      { text: "10,000 Active Miners Target", completed: false },
     ]
   },
   {
@@ -197,9 +197,11 @@ export function RoadmapSection() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-panel mb-6">
-            <Rocket className="w-4 h-4 text-[#FF6536]" />
-            <span className="text-sm text-zinc-300">Our Journey</span>
+          <div className="flex items-center justify-center gap-3 mb-6">
+            <div className="w-1.5 h-1.5 rounded-full bg-[#FF6536]" />
+            <span className="text-xs font-bold uppercase tracking-[0.2em] text-[#FF6536]/80">
+              Project Roadmap
+            </span>
           </div>
           
           <h2 className="text-4xl md:text-5xl font-bold mb-6 text-balance">

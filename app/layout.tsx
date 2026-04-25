@@ -3,6 +3,7 @@ import { Outfit, Inter } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
 import { ScrollToTop } from '@/components/scroll-to-top'
+import { CustomCursor } from '@/components/custom-cursor'
 
 const outfit = Outfit({ 
   subsets: ["latin"],
@@ -68,7 +69,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${outfit.variable} ${inter.variable} bg-background`} suppressHydrationWarning>
-      <body className="font-sans antialiased">
+      <body className="font-sans antialiased cursor-auto md:cursor-none">
+        <CustomCursor />
         {children}
         <ScrollToTop />
         {process.env.NODE_ENV === 'production' && <Analytics />}

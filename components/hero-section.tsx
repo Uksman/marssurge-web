@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button"
 import { Rocket, Cloud, Trophy } from "lucide-react"
 import { GooglePlayIcon, AppStoreIcon } from "@/components/icons"
-import { motion, animate, useInView, useMotionValue, useSpring, useTransform } from "framer-motion"
+import { motion, animate, useInView, useMotionValue, useSpring, useTransform, useScroll } from "framer-motion"
 import { useEffect, useRef, useState } from "react"
 import { Starfield } from "@/components/starfield"
 
@@ -35,22 +35,42 @@ function AnimatedCounter({ from = 0, to, duration = 2, suffix = "", format = fal
 // FloatingParticle removed as it's handled by Starfield if needed.
 
 function MagToken({ delay, angle, distance }: { delay: number; angle: number; distance: number }) {
+  const { scrollY } = useScroll()
+  const parallaxY = useTransform(scrollY, [0, 500], [0, -100])
+  const parallaxX = useTransform(scrollY, [0, 500], [0, 50])
+
   return (
-    <div
+    <motion.div
       className="absolute w-8 h-8 rounded-full shadow-lg border border-[#FF6536]/50 overflow-hidden"
       style={{
-        animation: `orbit ${15 + delay * 2}s linear infinite`,
-        animationDelay: `${delay}s`,
         left: "50%",
         top: "50%",
         marginLeft: "-16px",
         marginTop: "-16px",
         boxShadow: "0 0 15px rgba(255, 101, 54, 0.5), 0 0 30px rgba(255, 101, 54, 0.3)",
-        transform: `rotate(${angle}deg) translateX(${distance}px) rotate(-${angle}deg)`,
+        y: parallaxY,
+        x: parallaxX,
       }}
     >
-      <img src="/images/Token.jpeg" alt="MAG Token" className="w-full h-full object-cover" />
-    </div>
+      <motion.div
+        className="w-full h-full"
+        animate={{
+          rotate: [0, 360],
+        }}
+        transition={{
+          duration: 15 + delay,
+          repeat: Infinity,
+          ease: "linear",
+          delay: -delay,
+        }}
+        style={{
+          transformStyle: "preserve-3d",
+          transform: `rotate(${angle}deg) translateX(${distance}px) rotate(-${angle}deg)`,
+        }}
+      >
+        <img src="/images/Token.jpeg" alt="MAG Token" className="w-full h-full object-cover" />
+      </motion.div>
+    </motion.div>
   )
 }
 
@@ -165,6 +185,28 @@ function PhoneMockup() {
 }
 
 export function HeroSection() {
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.2,
+      },
+    },
+  }
+
+  const wordVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.6,
+      },
+    },
+  }
+
   return (
     <section 
       className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20"
@@ -184,28 +226,44 @@ export function HeroSection() {
       <div className="container mx-auto px-4 grid lg:grid-cols-2 gap-12 items-center relative z-10">
         {/* Left column - Text */}
         <motion.div 
-          initial={{ opacity: 0, x: -50 }}
-          whileInView={{ opacity: 1, x: 0 }}
+          initial="hidden"
+          whileInView="visible"
           viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
+          variants={containerVariants}
           className="text-center lg:text-left order-2 lg:order-1"
         >
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-panel mb-6">
-            <div className="w-2 h-2 rounded-full bg-[#FF6536] animate-pulse" />
-            <span className="text-sm text-zinc-300">Blockchain-Powered Mining</span>
-          </div>
+          <motion.div variants={wordVariants} className="flex items-center gap-3 mb-6">
+            <div className="w-1.5 h-1.5 rounded-full bg-[#FF6536]" />
+            <span className="text-xs font-bold uppercase tracking-[0.2em] text-[#FF6536]/80">
+              Blockchain-Powered Mining
+            </span>
+          </motion.div>
           
           <motion.h1 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+            variants={containerVariants}
             className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight text-balance"
           >
-            <span className="text-foreground">Think </span>
-            <span className="text-[#FF6536] neon-text">Unlimited</span>
+            <motion.span variants={wordVariants} className="text-foreground">Think </motion.span>
+            <motion.span 
+              variants={wordVariants} 
+              className="text-[#FF6536] neon-text inline-block"
+              animate={{
+                textShadow: [
+                  "0 0 10px rgba(255, 101, 54, 0.5)",
+                  "0 0 20px rgba(255, 101, 54, 0.8)",
+                  "0 0 10px rgba(255, 101, 54, 0.5)",
+                ]
+              }}
+              transition={{
+                duration: 2,
+                repeat: Infinity,
+                ease: "easeInOut"
+              }}
+            >
+              Unlimited
+            </motion.span>
             <br />
-            <span className="text-foreground">Possibilities</span>
+            <motion.span variants={wordVariants} className="text-foreground">Possibilities</motion.span>
           </motion.h1>
           
           <motion.p 
@@ -255,7 +313,7 @@ export function HeroSection() {
             className="grid grid-cols-3 gap-6 mt-12 pt-8 border-t border-zinc-800"
           >
             {[
-              { to: 50, suffix: "K+", label: "Active Miners" },
+              { to: 10, suffix: "K+", label: "Active Miners" },
               { to: 5, suffix: "M", label: "Total $MAG Supply" },
               { to: 70, suffix: "%", label: "Community Allocation" },
             ].map((stat, i) => (

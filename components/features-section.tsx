@@ -10,7 +10,7 @@ import {
   Rocket,
   Eye
 } from "lucide-react"
-import { motion } from "framer-motion"
+import { motion, useMotionValue, useSpring, useTransform } from "framer-motion"
 
 const features = [
   {
@@ -48,34 +48,74 @@ const features = [
 function FeatureCard({ feature, index }: { feature: typeof features[0]; index: number }) {
   const Icon = feature.icon
   
+  const x = useMotionValue(0)
+  const y = useMotionValue(0)
+
+  const mouseXSpring = useSpring(x)
+  const mouseYSpring = useSpring(y)
+
+  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["17.5deg", "-17.5deg"])
+  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-17.5deg", "17.5deg"])
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect()
+    const width = rect.width
+    const height = rect.height
+    const mouseX = e.clientX - rect.left
+    const mouseY = e.clientY - rect.top
+    const xPct = mouseX / width - 0.5
+    const yPct = mouseY / height - 0.5
+    x.set(xPct)
+    y.set(yPct)
+  }
+
+  const handleMouseLeave = () => {
+    x.set(0)
+    y.set(0)
+  }
+  
   return (
     <motion.div 
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
-      className="group relative glass-card rounded-2xl p-6 md:p-8 hover:border-[#FF6536]/30 transition-all duration-300 hover:-translate-y-1"
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      style={{
+        rotateY,
+        rotateX,
+        transformStyle: "preserve-3d",
+      }}
+      className="group relative glass-card rounded-2xl p-6 md:p-8 hover:border-[#FF6536]/30 transition-all duration-300"
     >
-      {/* Glow effect on hover */}
-      <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+      <div 
         style={{
-          background: "radial-gradient(circle at center, rgba(255, 101, 54, 0.1) 0%, transparent 70%)"
+          transform: "translateZ(50px)",
+          transformStyle: "preserve-3d",
         }}
-      />
-      
-      {/* Icon */}
-      <div className="relative w-14 h-14 rounded-xl bg-gradient-to-br from-[#FF6536]/20 to-[#FF6536]/5 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300">
-        <Icon className="w-7 h-7 text-[#FF6536]" />
-        <div className="absolute inset-0 rounded-xl border border-[#FF6536]/20 group-hover:border-[#FF6536]/40 transition-colors" />
+      >
+        {/* Glow effect on hover */}
+        <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+          style={{
+            background: "radial-gradient(circle at center, rgba(255, 101, 54, 0.1) 0%, transparent 70%)"
+          }}
+        />
+        
+        {/* Icon */}
+        <div className="relative w-14 h-14 rounded-xl bg-gradient-to-br from-[#FF6536]/20 to-[#FF6536]/5 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300">
+          <Icon className="w-7 h-7 text-[#FF6536]" />
+          <div className="absolute inset-0 rounded-xl border border-[#FF6536]/20 group-hover:border-[#FF6536]/40 transition-colors" />
+        </div>
+        
+        {/* Content */}
+        <h3 className="text-xl font-semibold text-[#fafafa] mb-3 group-hover:text-[#FF6536] transition-colors">
+          {feature.title}
+        </h3>
+        <p className="text-zinc-400 leading-relaxed">
+          {feature.description}
+        </p>
       </div>
-      
-      {/* Content */}
-      <h3 className="text-xl font-semibold text-[#fafafa] mb-3 group-hover:text-[#FF6536] transition-colors">
-        {feature.title}
-      </h3>
-      <p className="text-zinc-400 leading-relaxed">
-        {feature.description}
-      </p>
     </motion.div>
   )
 }
@@ -102,18 +142,20 @@ export function FeaturesSection() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-panel mb-6">
-            <Rocket className="w-4 h-4 text-[#FF6536]" />
-            <span className="text-sm text-zinc-300">Ecosystem Features</span>
+          <div className="flex items-center justify-center gap-3 mb-6">
+            <div className="w-1.5 h-1.5 rounded-full bg-[#FF6536]" />
+            <span className="text-xs font-bold uppercase tracking-[0.2em] text-[#FF6536]/80">
+              Ecosystem Features
+            </span>
           </div>
           
           <h2 className="text-4xl md:text-5xl font-bold mb-6 text-balance">
-            <span className="text-[#fafafa]">Everything You Need to </span>
-            <span className="text-[#FF6536] neon-text">Surge</span>
+            <span className="text-[#fafafa]">Explore the </span>
+            <span className="text-[#FF6536] neon-text">Marssurge Ecosystem</span>
           </h2>
           
           <p className="text-lg text-zinc-400 max-w-2xl mx-auto text-pretty">
-            A complete mobile ecosystem combining passive mining, market intelligence, skill-based gaming, and community engagement.
+            A comprehensive suite of tools designed for the modern blockchain enthusiast, from automated mining to deep market insights.
           </p>
         </motion.div>
 

@@ -14,7 +14,7 @@ const tokenHighlights = [
   { icon: Users, label: "Fair Distribution", desc: "70% to community" },
   { icon: Flame, label: "Hyper-Deflationary", desc: "Scarce utility token" },
   { icon: Briefcase, label: "5-Hour Cycles", desc: "Active participation" },
-  { icon: LineChart, label: "Real Utility", desc: "Not just speculation" },
+  { icon: LineChart, label: "Real Utility", desc: "Sustainable ecosystem" },
 ]
 
 function TokenChart() {
@@ -101,9 +101,11 @@ export function TokenomicsSection() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-panel mb-6">
-            <Coins className="w-4 h-4 text-[#FF6536]" />
-            <span className="text-sm text-zinc-300">Token Economics</span>
+          <div className="flex items-center justify-center gap-3 mb-6">
+            <div className="w-1.5 h-1.5 rounded-full bg-[#FF6536]" />
+            <span className="text-xs font-bold uppercase tracking-[0.2em] text-[#FF6536]/80">
+              Token Economics
+            </span>
           </div>
           
           <h2 className="text-4xl md:text-5xl font-bold mb-6 text-balance">

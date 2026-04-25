@@ -1,20 +1,42 @@
 "use client"
 
 import { useRef, useMemo, useState, useEffect } from "react"
-import { motion, useScroll, useTransform } from "framer-motion"
+import { motion, useScroll, useTransform, useMotionValue, useSpring } from "framer-motion"
 
 export function Starfield() {
   const containerRef = useRef<HTMLDivElement>(null)
   
+  const mouseX = useMotionValue(0)
+  const mouseY = useMotionValue(0)
+  
+  const springX = useSpring(mouseX, { damping: 50, stiffness: 200 })
+  const springY = useSpring(mouseY, { damping: 50, stiffness: 200 })
+
+  const mouseParallaxX = useTransform(springX, [-0.5, 0.5], ["1%", "-1%"])
+  const mouseParallaxY = useTransform(springY, [-0.5, 0.5], ["1%", "-1%"])
+
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end start"]
   })
 
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      const x = e.clientX / window.innerWidth - 0.5
+      const y = e.clientY / window.innerHeight - 0.5
+      mouseX.set(x)
+      mouseY.set(y)
+    }
+    window.addEventListener("mousemove", handleMouseMove)
+    return () => window.removeEventListener("mousemove", handleMouseMove)
+  }, [mouseX, mouseY])
+
   // Slower parallax for background stars
   const y1 = useTransform(scrollYProgress, [0, 1], ["0%", "30%"])
   // Medium parallax 
   const y2 = useTransform(scrollYProgress, [0, 1], ["0%", "60%"])
+
+  const yCombined2 = useTransform([y2, mouseParallaxY] as any, ([valY, valMouseY]: [string, string]) => `calc(${valY} + ${valMouseY})`)
 
   // Prevent hydration mismatch by using useMemo for server-side consistent render
   const stars1 = useMemo(() => [...Array(60)].map((_, i) => ({
@@ -68,7 +90,10 @@ export function Starfield() {
           
           <motion.div 
             className="absolute inset-0"
-            style={{ y: y2 }}
+            style={{ 
+              x: mouseParallaxX,
+              y: yCombined2
+            }}
           >
             {stars2.map((star, i) => (
               <div 
