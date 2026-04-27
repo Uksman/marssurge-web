@@ -20,7 +20,7 @@ const roadmapPhases = [
   {
     phase: "Phase 2",
     title: "The Surge",
-    quarter: "Q1 2026",
+    quarter: "Q2 2026",
     status: "current",
     icon: Zap,
     items: [
@@ -33,7 +33,7 @@ const roadmapPhases = [
   {
     phase: "Phase 3",
     title: "Utility Integration",
-    quarter: "Q2 2026",
+    quarter: "Q3 2026",
     status: "upcoming",
     icon: Target,
     items: [
@@ -46,7 +46,7 @@ const roadmapPhases = [
   {
     phase: "Phase 4",
     title: "TGE & DEX Launch",
-    quarter: "Q3 2026",
+    quarter: "Q4 2026",
     status: "upcoming",
     icon: Gem,
     items: [
@@ -59,7 +59,7 @@ const roadmapPhases = [
   {
     phase: "Phase 5",
     title: "Global Expansion",
-    quarter: "Q4 2026",
+    quarter: "Q1 2027",
     status: "upcoming",
     icon: Globe,
     items: [

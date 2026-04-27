@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button"
 import { Rocket, Cloud, Trophy } from "lucide-react"
 import { GooglePlayIcon, AppStoreIcon } from "@/components/icons"
-import { motion, animate, useInView, useMotionValue, useSpring, useTransform, useScroll } from "framer-motion"
+import { motion, animate, useInView, useMotionValue, useSpring, useTransform, useScroll, AnimatePresence } from "framer-motion"
 import { useEffect, useRef, useState } from "react"
 import { Starfield } from "@/components/starfield"
 
@@ -31,8 +31,6 @@ function AnimatedCounter({ from = 0, to, duration = 2, suffix = "", format = fal
 
   return <span ref={nodeRef}>{format ? from.toLocaleString() : from}{suffix}</span>
 }
-
-// FloatingParticle removed as it's handled by Starfield if needed.
 
 function MagToken({ delay, angle, distance }: { delay: number; angle: number; distance: number }) {
   const { scrollY } = useScroll()
@@ -74,10 +72,20 @@ function MagToken({ delay, angle, distance }: { delay: number; angle: number; di
   )
 }
 
+const MOCKUP_IMAGES = [
+  "/images/HomeScreen.jpeg",
+  "/images/WalletScreen.jpeg",
+  "/images/LeaderboardScreen.jpg",
+  "/images/ArcadeScreen.jpg",
+  "/images/CommunityScreen.jpg",
+  "/images/InviteScreen.jpg",
+]
+
 function PhoneMockup() {
   const mouseX = useMotionValue(0)
   const mouseY = useMotionValue(0)
   const [bursts, setBursts] = useState<{ id: number; x: number; y: number }[]>([])
+  const [currentImageIndex, setCurrentImageIndex] = useState(0)
   
   const springConfig = { damping: 20, stiffness: 200, mass: 0.5 }
   const x = useSpring(mouseX, springConfig)
@@ -85,6 +93,13 @@ function PhoneMockup() {
   
   const rotateX = useTransform(y, [-0.5, 0.5], [10, -10])
   const rotateY = useTransform(x, [-0.5, 0.5], [-10, 10])
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentImageIndex((prev) => (prev + 1) % MOCKUP_IMAGES.length)
+    }, 6000)
+    return () => clearInterval(timer)
+  }, [])
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const rect = e.currentTarget.getBoundingClientRect()
@@ -155,14 +170,22 @@ function PhoneMockup() {
           }}
         >
           {/* Screen */}
-          <div className="relative w-full rounded-[32px] bg-background overflow-hidden border-[4px] border-background">
+          <div className="relative w-full rounded-[32px] bg-background overflow-hidden border-[4px] border-background aspect-[9/19.5]">
             {/* Phone mock overlay */}
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-6 bg-background rounded-b-3xl z-10 shadow-sm" />
-            <img 
-              src="/images/HomeScreen.jpeg" 
-              alt="Marssurge App Home Screen"
-              className="w-full h-auto block" 
-            />
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-6 bg-background rounded-b-3xl z-20 shadow-sm" />
+            
+            <AnimatePresence>
+              <motion.img 
+                key={MOCKUP_IMAGES[currentImageIndex]}
+                src={MOCKUP_IMAGES[currentImageIndex]} 
+                alt="Marssurge App Screen"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 1.2, ease: "easeInOut" }}
+                className="absolute inset-0 w-full h-full object-fill" 
+              />
+            </AnimatePresence>
           </div>
         </div>
         
