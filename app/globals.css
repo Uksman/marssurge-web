@@ -197,10 +197,8 @@
 
 /* Glassmorphism utilities */
 .glass-panel {
-  background: rgba(24, 24, 27, 0.95);
+  background: #18181b; /* Fully opaque on mobile */
   border: 1px solid rgba(255, 255, 255, 0.1);
-  /* Force hardware acceleration reset on mobile */
-  transform: translateZ(0);
 }
 
 @media (min-width: 768px) {
@@ -208,12 +206,11 @@
     background: rgba(255, 255, 255, 0.05);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
-    transform: none;
   }
 }
 
 .glass-card {
-  background: rgba(24, 24, 27, 0.95);
+  background: #18181b; /* Fully opaque on mobile */
   border: 1px solid rgba(255, 255, 255, 0.12);
 }
 

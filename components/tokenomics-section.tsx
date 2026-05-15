@@ -92,6 +92,8 @@ export function TokenomicsSection() {
     return <section id="tokenomics" className="min-h-screen bg-background" />
   }
 
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768
+
   return (
     <section id="tokenomics" className="relative py-24 md:py-32 overflow-hidden isolate">
       {/* Background */}
@@ -150,8 +152,8 @@ export function TokenomicsSection() {
               {tokenDistribution.map((item, i) => (
                 <motion.div 
                   key={item.label} 
-                  initial={{ opacity: 0, x: 20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
+                  initial={{ opacity: isMobile ? 1 : 0, x: isMobile ? 0 : 20 }}
+                  whileInView={isMobile ? {} : { opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: i * 0.1 }}
                   className="group"
@@ -185,8 +187,8 @@ export function TokenomicsSection() {
               {tokenHighlights.map((item, i) => (
                 <motion.div 
                   key={i} 
-                  initial={{ opacity: 0, y: 10 }}
-                  whileInView={{ opacity: 1, y: 0 }}
+                  initial={{ opacity: isMobile ? 1 : 0, y: isMobile ? 0 : 10 }}
+                  whileInView={isMobile ? {} : { opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.4, delay: 0.8 + i * 0.1 }}
                   className="glass-panel rounded-xl p-4"
