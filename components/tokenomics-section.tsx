@@ -59,7 +59,8 @@ function TokenChart() {
               strokeWidth="0.5"
               className="transition-all duration-300 hover:opacity-80"
               style={{
-                filter: `drop-shadow(0 0 10px ${item.color}40)`
+                // Remove expensive filters that cause GPU glitches on some mobile browsers
+                // filter: `drop-shadow(0 0 10px ${item.color}40)`
               }}
             />
           )
@@ -85,9 +86,15 @@ export function TokenomicsSection() {
       {/* Background */}
       <div className="absolute inset-0">
         <div 
-          className="absolute inset-0 opacity-20"
+          className="absolute inset-0 opacity-20 hidden md:block"
           style={{
             background: "radial-gradient(ellipse at 20% 80%, rgba(255, 101, 54, 0.15) 0%, transparent 50%)"
+          }}
+        />
+        <div 
+          className="absolute inset-0 opacity-10 md:hidden"
+          style={{
+            background: "rgba(255, 101, 54, 0.05)"
           }}
         />
       </div>

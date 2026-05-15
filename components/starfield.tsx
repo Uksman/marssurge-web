@@ -38,7 +38,17 @@ export function Starfield() {
 
   const yCombined2 = useTransform([y2, mouseParallaxY] as any, ([valY, valMouseY]: [string, string]) => `calc(${valY} + ${valMouseY})`)
 
+  const [mounted, setMounted] = useState(false)
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
   // Prevent hydration mismatch by using useMemo for server-side consistent render
+  // Prevent hydration mismatch and window undefined error
+  const stars1Count = mounted && typeof window !== 'undefined' && window.innerWidth < 768 ? 20 : 60
+  const stars2Count = mounted && typeof window !== 'undefined' && window.innerWidth < 768 ? 10 : 20
+  const particlesCount = mounted && typeof window !== 'undefined' && window.innerWidth < 768 ? 5 : 15
+
   const stars1 = useMemo(() => [...Array(60)].map((_, i) => ({
     width: Math.random() * 2 + 1,
     left: `${Math.random() * 100}%`,
@@ -60,11 +70,6 @@ export function Starfield() {
     delay: Math.random() * 5
   })), [])
 
-  const [mounted, setMounted] = useState(false)
-  useEffect(() => {
-    setMounted(true)
-  }, [])
-
   return (
     <div ref={containerRef} className="absolute inset-0 overflow-hidden pointer-events-none">
       {mounted && (
@@ -73,7 +78,7 @@ export function Starfield() {
             className="absolute inset-0"
             style={{ y: y1 }}
           >
-            {stars1.map((star, i) => (
+            {stars1.slice(0, stars1Count).map((star, i) => (
               <div 
                 key={i} 
                 className="absolute rounded-full bg-white"
@@ -95,7 +100,7 @@ export function Starfield() {
               y: yCombined2
             }}
           >
-            {stars2.map((star, i) => (
+            {stars2.slice(0, stars2Count).map((star, i) => (
               <div 
                 key={i} 
                 className="absolute rounded-full bg-[#FF6536]"
@@ -109,7 +114,7 @@ export function Starfield() {
                 }}
               />
             ))}
-            {particles.map((p, i) => (
+            {particles.slice(0, particlesCount).map((p, i) => (
               <div
                 key={i}
                 className="absolute rounded-full bg-[#FF6536] animate-particle opacity-60"
