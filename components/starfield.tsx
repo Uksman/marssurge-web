@@ -4,6 +4,11 @@ import { useRef, useMemo, useState, useEffect } from "react"
 import { motion, useScroll, useTransform, useMotionValue, useSpring } from "framer-motion"
 
 export function Starfield() {
+  const [mounted, setMounted] = useState(false)
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
   const containerRef = useRef<HTMLDivElement>(null)
   
   const mouseX = useMotionValue(0)
@@ -43,11 +48,6 @@ export function Starfield() {
       return `calc(${valY} + ${valMouseY})`;
     }
   )
-
-  const [mounted, setMounted] = useState(false)
-  useEffect(() => {
-    setMounted(true)
-  }, [])
 
   // Prevent hydration mismatch and window undefined error
   const isMobile = mounted && typeof window !== 'undefined' && window.innerWidth < 768
