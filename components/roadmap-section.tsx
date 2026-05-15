@@ -177,7 +177,7 @@ function PhaseCard({ phase, index }: { phase: typeof roadmapPhases[0]; index: nu
 
 export function RoadmapSection() {
   return (
-    <section id="roadmap" className="relative py-24 md:py-32">
+    <section id="roadmap" className="relative py-24 md:py-32 isolate">
       {/* Background */}
       <div className="absolute inset-0">
         <div 

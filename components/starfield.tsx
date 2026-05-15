@@ -43,11 +43,11 @@ export function Starfield() {
     setMounted(true)
   }, [])
 
-  // Prevent hydration mismatch by using useMemo for server-side consistent render
   // Prevent hydration mismatch and window undefined error
-  const stars1Count = mounted && typeof window !== 'undefined' && window.innerWidth < 768 ? 20 : 60
-  const stars2Count = mounted && typeof window !== 'undefined' && window.innerWidth < 768 ? 10 : 20
-  const particlesCount = mounted && typeof window !== 'undefined' && window.innerWidth < 768 ? 5 : 15
+  const isMobile = mounted && typeof window !== 'undefined' && window.innerWidth < 768
+  const stars1Count = isMobile ? 20 : 60
+  const stars2Count = isMobile ? 10 : 20
+  const particlesCount = isMobile ? 5 : 15
 
   const stars1 = useMemo(() => [...Array(60)].map((_, i) => ({
     width: Math.random() * 2 + 1,

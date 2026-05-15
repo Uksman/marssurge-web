@@ -122,7 +122,7 @@ function FeatureCard({ feature, index }: { feature: typeof features[0]; index: n
 
 export function FeaturesSection() {
   return (
-    <section id="features" className="relative py-24 md:py-32">
+    <section id="features" className="relative py-24 md:py-32 isolate">
       {/* Background */}
       <div className="absolute inset-0">
         <div 

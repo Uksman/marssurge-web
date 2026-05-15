@@ -56,7 +56,8 @@ export function CustomCursor() {
     }
   }, [cursorX, cursorY, isVisible])
 
-  if (!mounted) return null
+  const isMobile = mounted && typeof window !== 'undefined' && window.innerWidth < 768
+  if (!mounted || isMobile) return null
 
   return (
     <div className="fixed inset-0 pointer-events-none z-[9999] overflow-hidden">

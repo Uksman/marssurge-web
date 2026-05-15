@@ -82,7 +82,7 @@ function TokenChart() {
 
 export function TokenomicsSection() {
   return (
-    <section id="tokenomics" className="relative py-24 md:py-32 overflow-hidden">
+    <section id="tokenomics" className="relative py-24 md:py-32 overflow-hidden isolate">
       {/* Background */}
       <div className="absolute inset-0">
         <div 
