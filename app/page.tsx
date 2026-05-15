@@ -9,22 +9,6 @@ import { Footer } from "@/components/footer"
 export default function Home() {
   return (
     <main className="min-h-screen bg-background overflow-x-hidden">
-      {/* Star field background */}
-      <div 
-        className="fixed inset-0 pointer-events-none z-[-1]"
-        style={{
-          backgroundImage: `
-            radial-gradient(1px 1px at 20px 30px, white, transparent),
-            radial-gradient(1px 1px at 40px 70px, rgba(255,255,255,0.8), transparent),
-            radial-gradient(1px 1px at 50px 160px, rgba(255,255,255,0.6), transparent),
-            radial-gradient(1px 1px at 90px 40px, white, transparent),
-            radial-gradient(1.5px 1.5px at 200px 200px, rgba(255,101,54,0.3), transparent),
-            radial-gradient(1.5px 1.5px at 350px 250px, rgba(255,101,54,0.2), transparent)
-          `,
-          backgroundSize: "400px 400px",
-          opacity: 0.3
-        }}
-      />
       
       <Navigation />
       <HeroSection />

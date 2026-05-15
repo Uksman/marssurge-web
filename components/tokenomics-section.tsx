@@ -2,6 +2,7 @@
 
 import { Coins, Flame, Users, Briefcase, LineChart, Megaphone } from "lucide-react"
 import { motion } from "framer-motion"
+import { useEffect, useState } from "react"
 
 const tokenDistribution = [
   { label: "Community Mining", percentage: 70, color: "#FF6536", amount: "3,500,000" },
@@ -81,6 +82,15 @@ function TokenChart() {
 }
 
 export function TokenomicsSection() {
+  const [mounted, setMounted] = (typeof window !== 'undefined') ? [true, () => {}] : [false, () => {}] // Simple SSR-safe check
+  const [realMounted, setRealMounted] = useState(false)
+
+  useEffect(() => {
+    setRealMounted(true)
+  }, [])
+
+  if (!realMounted) return <section id="tokenomics" className="min-h-screen bg-background" />
+
   return (
     <section id="tokenomics" className="relative py-24 md:py-32 overflow-hidden isolate">
       {/* Background */}

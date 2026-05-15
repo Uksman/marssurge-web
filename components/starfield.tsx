@@ -36,7 +36,13 @@ export function Starfield() {
   // Medium parallax 
   const y2 = useTransform(scrollYProgress, [0, 1], ["0%", "60%"])
 
-  const yCombined2 = useTransform([y2, mouseParallaxY] as any, ([valY, valMouseY]: [string, string]) => `calc(${valY} + ${valMouseY})`)
+  const yCombined2 = useTransform(
+    [y2, mouseParallaxY] as any, 
+    ([valY, valMouseY]: [string, string]) => {
+      if (mounted && typeof window !== 'undefined' && window.innerWidth < 768) return valY;
+      return `calc(${valY} + ${valMouseY})`;
+    }
+  )
 
   const [mounted, setMounted] = useState(false)
   useEffect(() => {

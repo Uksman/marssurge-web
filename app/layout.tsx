@@ -4,6 +4,7 @@ import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
 import { ScrollToTop } from '@/components/scroll-to-top'
 import { CustomCursor } from '@/components/custom-cursor'
+import { GlobalBackground } from '@/components/global-background'
 
 const outfit = Outfit({ 
   subsets: ["latin"],
@@ -70,6 +71,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${outfit.variable} ${inter.variable} bg-background`} suppressHydrationWarning>
       <body className="font-sans antialiased cursor-auto md:cursor-none">
+        <GlobalBackground />
         <CustomCursor />
         {children}
         <ScrollToTop />

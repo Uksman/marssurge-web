@@ -123,18 +123,18 @@ function PhoneMockup() {
 
   return (
     <div 
-      className="relative [perspective:1000px] cursor-pointer w-full h-[500px] md:h-[600px] flex items-center justify-center" 
+      className="relative [perspective:1000px] cursor-pointer w-full h-[450px] md:h-[600px] flex items-center justify-center" 
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       onClick={handleClick}
     >
       {/* Orbital rings behind the 3D phone */}
       <div 
-        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] md:w-[500px] md:h-[500px] rounded-full border border-[#FF6536]/20 animate-spin-slow pointer-events-none"
+        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] md:w-[500px] md:h-[500px] rounded-full border border-[#FF6536]/20 animate-spin-slow pointer-events-none"
         style={{ animationDuration: "40s" }}
       />
       <div 
-        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[480px] h-[480px] md:w-[600px] md:h-[600px] rounded-full border border-[#FF6536]/10 pointer-events-none"
+        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[380px] h-[380px] md:w-[600px] md:h-[600px] rounded-full border border-[#FF6536]/10 pointer-events-none"
         style={{ 
           animation: "spin-slow 60s linear infinite reverse",
         }}
@@ -232,7 +232,7 @@ export function HeroSection() {
 
   return (
     <section 
-      className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden pt-32 md:pt-20"
     >
       {/* Starfield Parallax background */}
       <Starfield />
