@@ -82,14 +82,15 @@ function TokenChart() {
 }
 
 export function TokenomicsSection() {
-  const [mounted, setMounted] = (typeof window !== 'undefined') ? [true, () => {}] : [false, () => {}] // Simple SSR-safe check
-  const [realMounted, setRealMounted] = useState(false)
+  const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
-    setRealMounted(true)
+    setMounted(true)
   }, [])
 
-  if (!realMounted) return <section id="tokenomics" className="min-h-screen bg-background" />
+  if (!mounted) {
+    return <section id="tokenomics" className="min-h-screen bg-background" />
+  }
 
   return (
     <section id="tokenomics" className="relative py-24 md:py-32 overflow-hidden isolate">

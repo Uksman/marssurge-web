@@ -123,7 +123,7 @@ function PhoneMockup() {
 
   return (
     <div 
-      className="relative [perspective:1000px] cursor-pointer w-full h-[450px] md:h-[600px] flex items-center justify-center" 
+      className="relative [perspective:1000px] cursor-pointer w-full h-[380px] md:h-[600px] flex items-center justify-center mt-4 md:mt-0" 
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       onClick={handleClick}
@@ -159,7 +159,7 @@ function PhoneMockup() {
       >
         {/* Phone frame */}
         <div 
-          className="relative w-[280px] md:w-[320px] rounded-[40px] bg-gradient-to-b from-zinc-800 to-zinc-900 p-2 shadow-2xl animate-float pointer-events-auto"
+          className="relative w-[240px] md:w-[320px] rounded-[40px] bg-gradient-to-b from-zinc-800 to-zinc-900 p-2 shadow-2xl animate-float pointer-events-auto"
           style={{
             boxShadow: `
               0 0 60px rgba(255, 101, 54, 0.3),
@@ -232,7 +232,7 @@ export function HeroSection() {
 
   return (
     <section 
-      className="relative min-h-screen flex items-center justify-center overflow-hidden pt-32 md:pt-20"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden pt-44 md:pt-20"
     >
       {/* Starfield Parallax background */}
       <Starfield />
@@ -246,16 +246,16 @@ export function HeroSection() {
       />
 
       {/* Content */}
-      <div className="container mx-auto px-4 grid lg:grid-cols-2 gap-12 items-center relative z-10">
+      <div className="container mx-auto px-4 relative z-10 grid lg:grid-cols-2 gap-20 lg:gap-8 items-center">
         {/* Left column - Text */}
         <motion.div 
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
           variants={containerVariants}
-          className="text-center lg:text-left order-2 lg:order-1"
+          className="text-center lg:text-left order-2 lg:order-1 mt-10 lg:mt-0"
         >
-          <motion.div variants={wordVariants} className="flex items-center gap-3 mb-6">
+          <motion.div variants={wordVariants} className="flex items-center justify-center lg:justify-start gap-3 mb-6">
             <div className="w-1.5 h-1.5 rounded-full bg-[#FF6536]" />
             <span className="text-xs font-bold uppercase tracking-[0.2em] text-[#FF6536]/80">
               Blockchain-Powered Mining

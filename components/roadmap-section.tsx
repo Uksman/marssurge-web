@@ -1,5 +1,7 @@
 "use client"
 
+import { useState, useEffect } from "react"
+
 import { Check, Circle, Rocket, Zap, Globe, Crown, Target, Gem } from "lucide-react"
 import { motion } from "framer-motion"
 
@@ -176,6 +178,14 @@ function PhaseCard({ phase, index }: { phase: typeof roadmapPhases[0]; index: nu
 }
 
 export function RoadmapSection() {
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  if (!mounted) return null
+
   return (
     <section id="roadmap" className="relative py-24 md:py-32 isolate">
       {/* Background */}
