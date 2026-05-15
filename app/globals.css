@@ -197,34 +197,32 @@
 
 /* Glassmorphism utilities */
 .glass-panel {
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  background: rgba(24, 24, 27, 0.9);
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 @media (min-width: 768px) {
   .glass-panel {
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
   }
 }
 
 .glass-card {
-  background: linear-gradient(
-    135deg,
-    rgba(255, 255, 255, 0.08) 0%,
-    rgba(255, 255, 255, 0.02) 100%
-  );
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background: rgba(24, 24, 27, 0.95);
   border: 1px solid rgba(255, 255, 255, 0.12);
 }
 
 @media (min-width: 768px) {
   .glass-card {
-    backdrop-filter: blur(24px);
-    -webkit-backdrop-filter: blur(24px);
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.08) 0%,
+      rgba(255, 255, 255, 0.02) 100%
+    );
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
   }
 }
 
@@ -236,10 +234,16 @@
 }
 
 .neon-text {
-  text-shadow: 
-    0 0 10px rgba(255, 101, 54, 0.8),
-    0 0 20px rgba(255, 101, 54, 0.6),
-    0 0 30px rgba(255, 101, 54, 0.4);
+  text-shadow: 0 0 10px rgba(255, 101, 54, 0.8);
+}
+
+@media (min-width: 768px) {
+  .neon-text {
+    text-shadow: 
+      0 0 10px rgba(255, 101, 54, 0.8),
+      0 0 20px rgba(255, 101, 54, 0.6),
+      0 0 30px rgba(255, 101, 54, 0.4);
+  }
 }
 
 /* Scrollbar styling */
