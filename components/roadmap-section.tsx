@@ -53,7 +53,7 @@ const roadmapPhases = [
     icon: Gem,
     items: [
       { text: "$MAG Token Generation Event", completed: false },
-      { text: "DEX Listing (Uniswap/Aerodrome)", completed: false },
+      { text: "DEX Listing", completed: false },
       { text: "Withdrawals Open", completed: false },
       { text: "Trading Goes Live", completed: false },
     ]
@@ -66,19 +66,19 @@ const roadmapPhases = [
     icon: Globe,
     items: [
       { text: "Tier 2 CEX Listings (MEXC, Gate)", completed: false },
-      { text: "CoinGecko/CMC Listing", completed: false },
+      { text: "CoinGecko & CoinMarketCap Listings", completed: false },
       { text: "Ecosystem Partnerships", completed: false },
       { text: "Global Marketing Campaign", completed: false },
     ]
   },
   {
     phase: "Phase 6",
-    title: "The Moon",
+    title: "Ecosystem Maturity",
     quarter: "2027+",
     status: "upcoming",
     icon: Crown,
     items: [
-      { text: "Tier 1 CEX Listings (Binance, Coinbase)", completed: false },
+      { text: "Tier 1 CEX Listings", completed: false },
       { text: "Marssurge DAO Governance", completed: false },
       { text: "Institutional API Tools", completed: false },
       { text: "Ecosystem Dominance", completed: false },
