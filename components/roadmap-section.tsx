@@ -28,7 +28,7 @@ const roadmapPhases = [
     items: [
       { text: "App Beta Launch (Android/iOS)", completed: true },
       { text: "Mining Start (Genesis Block)", completed: true },
-      { text: "KYC Compliance", completed: false },
+      { text: "In-App Non-custodial Wallet", completed: true },
       { text: "10,000 Active Miners Target", completed: false },
     ]
   },
@@ -41,7 +41,7 @@ const roadmapPhases = [
     items: [
       { text: "Whale Tracking Beta", completed: false },
       { text: "GameFi Mini-games Launch", completed: false },
-      { text: "In-App Non-custodial Wallet", completed: false },
+      { text: "KYC Compliance", completed: false },
       { text: "Community Expansion", completed: false },
     ]
   },
@@ -90,6 +90,8 @@ function PhaseCard({ phase, index }: { phase: typeof roadmapPhases[0]; index: nu
   const Icon = phase.icon
   const isCompleted = phase.status === "completed"
   const isCurrent = phase.status === "current"
+  const completedItems = phase.items.filter(item => item.completed).length
+  const progressPercentage = Math.round((completedItems / phase.items.length) * 100)
   
   return (
     <motion.div 
@@ -163,12 +165,12 @@ function PhaseCard({ phase, index }: { phase: typeof roadmapPhases[0]; index: nu
         <div className="mt-4 pt-4 border-t border-zinc-800">
           <div className="flex items-center justify-between text-xs mb-2">
             <span className="text-zinc-500">Progress</span>
-            <span className="text-[#FF6536] font-semibold">50%</span>
+            <span className="text-[#FF6536] font-semibold">{progressPercentage}%</span>
           </div>
           <div className="h-1.5 rounded-full bg-zinc-800 overflow-hidden">
             <div 
               className="h-full rounded-full bg-gradient-to-r from-[#FF6536] to-[#FF8F6B]"
-              style={{ width: "50%" }}
+              style={{ width: `${progressPercentage}%` }}
             />
           </div>
         </div>
