@@ -14,8 +14,8 @@ const footerLinks = {
   resources: [
     { label: "Whitepaper", href: "/whitepaper" },
     { label: "Documentation", href: "#" },
-    { label: "FAQ", href: "#" },
-    { label: "Support", href: "#" },
+    { label: "FAQ", href: "/#faq" },
+    { label: "Support", href: "/support" },
   ],
   community: [
     { label: "X (Twitter)", href: "https://x.com/MSurge01" },
