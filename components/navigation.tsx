@@ -12,6 +12,7 @@ const navLinks = [
   { label: "Tokenomics", href: "/#tokenomics" },
   { label: "Roadmap", href: "/#roadmap" },
   { label: "Whitepaper", href: "/whitepaper", icon: FileText },
+  // { label: "Ambassador", href: "/ambassador" },
 ]
 
 export function Navigation() {
