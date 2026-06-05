@@ -130,9 +130,9 @@ export default function AmbassadorPage() {
                 Apply Now <ArrowRight className="ml-2 w-5 h-5" />
               </a>
             </Button>
-            <Button size="lg" variant="outline" className="w-full sm:w-auto border-[#FF6536]/30 text-[#fafafa] hover:bg-[#FF6536]/10 hover:border-[#FF6536] px-8 py-6 text-lg rounded-xl transition-all glass-panel">
+            {/* <Button size="lg" variant="outline" className="w-full sm:w-auto border-[#FF6536]/30 text-[#fafafa] hover:bg-[#FF6536]/10 hover:border-[#FF6536] px-8 py-6 text-lg rounded-xl transition-all glass-panel">
               Read the Guidelines
-            </Button>
+            </Button> */}
           </motion.div>
         </div>
       </section>
