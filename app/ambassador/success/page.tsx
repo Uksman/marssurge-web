@@ -3,7 +3,7 @@
 import { Navigation } from "@/components/navigation"
 import { Footer } from "@/components/footer"
 import { Button } from "@/components/ui/button"
-import { CheckCircle2, ArrowRight, Home } from "lucide-react"
+import { BadgeCheck, ArrowRight, Home } from "lucide-react"
 import { motion } from "framer-motion"
 import { Starfield } from "@/components/starfield"
 import Link from "next/link"
@@ -29,9 +29,14 @@ export default function AmbassadorSuccessPage() {
             className="flex justify-center mb-8"
           >
             <div className="relative">
-              <div className="absolute inset-0 bg-[#FF6536] blur-2xl opacity-20 rounded-full" />
-              <div className="w-24 h-24 bg-gradient-to-br from-[#FF6536]/20 to-[#FF6536]/5 rounded-3xl flex items-center justify-center border border-[#FF6536]/30 relative z-10">
-                <CheckCircle2 className="w-12 h-12 text-[#FF6536]" />
+              {/* Subtle ambient glow */}
+              <div className="absolute inset-0 bg-[#FF6536] blur-2xl opacity-10 rounded-full" />
+              
+              {/* Premium glass container */}
+              <div className="w-24 h-24 bg-zinc-900/50 backdrop-blur-xl rounded-full flex items-center justify-center border border-zinc-800/80 shadow-[inset_0_1px_1px_rgba(255,255,255,0.05)] relative z-10">
+                <div className="w-16 h-16 bg-[#FF6536]/10 rounded-full flex items-center justify-center border border-[#FF6536]/20">
+                  <BadgeCheck className="w-8 h-8 text-[#FF6536]" />
+                </div>
               </div>
             </div>
           </motion.div>

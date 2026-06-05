@@ -116,7 +116,7 @@ export default function AmbassadorPage() {
             transition={{ duration: 0.6, delay: 0.3 }}
             className="text-lg md:text-xl text-zinc-400 max-w-2xl mx-auto leading-relaxed text-pretty"
           >
-            Join our elite group of community leaders, content creators, and blockchain enthusiasts. Help us shape the future of mobile crypto mining and earn exclusive rewards.
+            Join our elite group of community leaders, content creators, and blockchain enthusiasts. Drive the growth of the Marssurge ecosystem and earn exclusive rewards.
           </motion.p>
 
           <motion.div 

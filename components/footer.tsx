@@ -22,7 +22,7 @@ const footerLinks = {
     { label: "Telegram", href: "https://t.me/MarsSurge" },
     { label: "Instagram", href: "https://www.instagram.com/invites/contact/?igsh=1r8ftnqpjxwzw&utm_content=yx5ss12" },
     { label: "YouTube", href: "https://youtube.com/@MarsSurge" },
-    // { label: "Ambassador Program", href: "/ambassador" },
+    { label: "Ambassador Program", href: "/ambassador" },
   ],
   legal: [
     { label: "Privacy Policy", href: "/privacy-policy" },
