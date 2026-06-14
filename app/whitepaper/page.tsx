@@ -81,23 +81,23 @@ Curated News feed and Daily Quizzes. Rewards for correct answers to incentivize 
 • Alpha App Development
 • Website Launch
 
-### Phase 2: The Surge (Q2 2026)
+### Phase 2: The Surge (Q2 - Q3 2026)
 • App Beta Launch (Android/iOS)
 • Mining Start (Genesis Block)
 • In-App Non-custodial Wallet
 • 50,000 Active Miners Target
 
-### Phase 3: Utility Integration (Q3 2026)
+### Phase 3: Utility Integration (Q4 2026)
 • Whale Tracking Beta
 • GameFi Mini-games Launch
 • KYC Compliance
 
-### Phase 4: TGE & DEX Launch (Q4 2026)
+### Phase 4: TGE & DEX Launch (Q1 2027)
 • $MAG Token Generation
 • DEX Listing
 • Withdrawals Open
 
-### Phase 5: Global Expansion (Q1 2027)
+### Phase 5: Global Expansion (Q3 2027)
 • Tier 2 CEX Listings (MEXC, Gate)
 • CoinGecko & CoinMarketCap Listings
 • Ecosystem Partnerships
