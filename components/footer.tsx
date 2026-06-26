@@ -49,8 +49,11 @@ export function Footer() {
               />
               <span className="text-xl font-bold text-[#fafafa]">MARSSURGE</span>
             </Link>
-            <p className="text-zinc-400 mb-6 max-w-xs">
+            <p className="text-zinc-400 mb-4 max-w-xs">
               Blockchain-based crypto mining infrastructure project, focused on transparency, security, and sustainable ecosystem development.
+            </p>
+            <p className="text-zinc-500 text-sm mb-6 max-w-xs">
+              Marssurge is developed and operated by PANDORYX TECHNOLOGIES LIMITED.
             </p>
             <div className="flex gap-3">
               <a
@@ -152,7 +155,7 @@ export function Footer() {
         <div className="container mx-auto px-4 py-6">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <p className="text-sm text-zinc-500">
-              &copy; {new Date().getFullYear()} Marssurge Network. All rights reserved.
+              &copy; {new Date().getFullYear()} PANDORYX TECHNOLOGIES LIMITED. Marssurge&reg; is a product of PANDORYX TECHNOLOGIES LIMITED. All rights reserved.
             </p>
             <div className="flex items-center gap-4 text-xs text-zinc-500">
               <span>This whitepaper is for informational purposes only and does not constitute financial advice.</span>

@@ -1,12 +1,22 @@
-import { Navigation } from "@/components/navigation"
-import { Footer } from "@/components/footer"
-import { FileText, Cpu, UserCheck, Ban, Copyright, Settings, AlertTriangle, Globe } from "lucide-react"
-import type { Metadata } from "next"
+import { Navigation } from "@/components/navigation";
+import { Footer } from "@/components/footer";
+import {
+  FileText,
+  Cpu,
+  UserCheck,
+  Ban,
+  Copyright,
+  Settings,
+  AlertTriangle,
+  Globe,
+} from "lucide-react";
+import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Terms of Service | Marssurge Network",
-  description: "Read the Marssurge Terms of Service. Understand the rules, eligibility requirements, and your rights when using the Marssurge app.",
-}
+  description:
+    "Read the Marssurge Terms of Service. Understand the rules, eligibility requirements, and your rights when using the Marssurge app.",
+};
 
 const sections = [
   {
@@ -39,7 +49,8 @@ By accessing the App, you acknowledge that you have read, understood, and agree 
     subsections: [
       {
         heading: "3.1. Age Requirement",
-        content: "You must be at least 18 years of age (or of legal age in your jurisdiction) to use the App.",
+        content:
+          "You must be at least 18 years of age (or of legal age in your jurisdiction) to use the App.",
       },
       {
         heading: "3.2. One Account Policy",
@@ -76,11 +87,13 @@ By accessing the App, you acknowledge that you have read, understood, and agree 
     subsections: [
       {
         heading: "6.1. Right to Modify",
-        content: "We reserve the right to change, modify, or remove the contents of the App at any time or for any reason at our sole discretion without notice.",
+        content:
+          "We reserve the right to change, modify, or remove the contents of the App at any time or for any reason at our sole discretion without notice.",
       },
       {
         heading: "6.2. Account Termination",
-        content: "We reserve the right to suspend or terminate your account without warning if we detect suspicious activity, bot usage, or violation of these Terms. In such events, all accumulated tokens will be burned (destroyed).",
+        content:
+          "We reserve the right to suspend or terminate your account without warning if we detect suspicious activity, bot usage, or violation of these Terms. In such events, all accumulated tokens will be burned (destroyed).",
       },
     ],
   },
@@ -95,14 +108,14 @@ By accessing the App, you acknowledge that you have read, understood, and agree 
     id: "governing-law",
     title: "8. Governing Law",
     icon: Globe,
-    content: "These Terms shall be governed by and defined following the laws of the jurisdiction in which the Marssurge Project is registered. You irrevocably consent that the courts of said jurisdiction shall have exclusive authority to resolve any dispute which may arise in connection with these terms.",
+    content:
+      "These Terms shall be governed by and defined following the laws of the jurisdiction in which the Marssurge Project is registered. You irrevocably consent that the courts of said jurisdiction shall have exclusive authority to resolve any dispute which may arise in connection with these terms.",
   },
-]
+];
 
 export default function TermsOfServicePage() {
   return (
     <main className="min-h-screen bg-background overflow-x-hidden">
-
       <Navigation />
 
       {/* Hero */}
@@ -117,7 +130,8 @@ export default function TermsOfServicePage() {
               <span className="text-[#FF6536] neon-text">TERMS</span> OF SERVICE
             </h1>
             <p className="text-lg text-zinc-400 max-w-2xl mx-auto">
-              Please read these Terms carefully before using the Marssurge app. By accessing the App, you agree to be bound by these Terms.
+              Please read these Terms carefully before using the Marssurge app.
+              By accessing the App, you agree to be bound by these Terms.
             </p>
           </div>
         </div>
@@ -128,14 +142,15 @@ export default function TermsOfServicePage() {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <div className="glass-panel p-6 md:p-8 rounded-2xl">
-              <h2 className="text-xl font-semibold text-foreground mb-6">Table of Contents</h2>
+              <h2 className="text-xl font-semibold text-foreground mb-6">
+                Table of Contents
+              </h2>
               <nav className="grid md:grid-cols-2 gap-3">
                 {sections.map((section) => (
                   <a
                     key={section.id}
                     href={`#${section.id}`}
-                    className="flex items-center gap-3 px-4 py-3 rounded-xl bg-zinc-800/30 hover:bg-zinc-800/60 border border-zinc-700/30 hover:border-[#FF6536]/30 transition-all group"
-                  >
+                    className="flex items-center gap-3 px-4 py-3 rounded-xl bg-zinc-800/30 hover:bg-zinc-800/60 border border-zinc-700/30 hover:border-[#FF6536]/30 transition-all group">
                     <section.icon className="w-5 h-5 text-[#FF6536] flex-shrink-0" />
                     <span className="text-muted-foreground group-hover:text-foreground transition-colors">
                       {section.title}
@@ -156,13 +171,14 @@ export default function TermsOfServicePage() {
               <article
                 key={section.id}
                 id={section.id}
-                className="glass-panel p-6 md:p-10 rounded-2xl scroll-mt-24"
-              >
+                className="glass-panel p-6 md:p-10 rounded-2xl scroll-mt-24">
                 <div className="flex items-center gap-4 mb-6">
                   <div className="w-12 h-12 rounded-xl bg-[#FF6536]/10 border border-[#FF6536]/30 flex items-center justify-center flex-shrink-0">
                     <section.icon className="w-6 h-6 text-[#FF6536]" />
                   </div>
-                  <h2 className="text-2xl md:text-3xl font-bold text-foreground">{section.title}</h2>
+                  <h2 className="text-2xl md:text-3xl font-bold text-foreground">
+                    {section.title}
+                  </h2>
                 </div>
 
                 {/* Plain content */}
@@ -172,20 +188,23 @@ export default function TermsOfServicePage() {
                       "isWarning" in section && section.isWarning
                         ? "text-zinc-300 font-medium tracking-wide"
                         : "text-muted-foreground"
-                    }`}
-                  >
+                    }`}>
                     {section.content}
                   </div>
                 )}
 
                 {/* Intro + bullets */}
                 {"intro" in section && section.intro && (
-                  <p className="text-muted-foreground leading-relaxed mb-4">{section.intro}</p>
+                  <p className="text-muted-foreground leading-relaxed mb-4">
+                    {section.intro}
+                  </p>
                 )}
                 {"bullets" in section && section.bullets && (
                   <ul className="space-y-3">
                     {section.bullets.map((b, i) => (
-                      <li key={i} className="flex items-start gap-3 text-zinc-400">
+                      <li
+                        key={i}
+                        className="flex items-start gap-3 text-zinc-400">
                         <span className="flex-shrink-0 mt-1 w-6 h-6 rounded-full bg-red-500/10 border border-red-500/30 flex items-center justify-center text-red-400 text-xs font-bold">
                           ✕
                         </span>
@@ -200,8 +219,12 @@ export default function TermsOfServicePage() {
                   <div className="space-y-5">
                     {section.subsections.map((sub, i) => (
                       <div key={i}>
-                        <h3 className="text-base font-semibold text-foreground mb-2">{sub.heading}</h3>
-                        <p className="text-muted-foreground leading-relaxed">{sub.content}</p>
+                        <h3 className="text-base font-semibold text-foreground mb-2">
+                          {sub.heading}
+                        </h3>
+                        <p className="text-muted-foreground leading-relaxed">
+                          {sub.content}
+                        </p>
                       </div>
                     ))}
                   </div>
@@ -214,5 +237,5 @@ export default function TermsOfServicePage() {
 
       <Footer />
     </main>
-  )
+  );
 }
